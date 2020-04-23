@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>第一个Thymleaf页面</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+
+<body>
+    <p th:text="'用户ID：' + ${uid}"></p>
+    <p th:utext="'用户名称：' + ${name}"></p>
+</body>
+
+</html>

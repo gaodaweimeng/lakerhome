@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">用户界面</a>
+            </div>
+
+            <div>
+                <form class="navbar-form navbar-left" method="post" action="handle_user_search">
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" name="email" placeholder="账号查询"/>
+                        </label>
+                    </div>
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="admin_index.html"><span class="glyphicon glyphicon-share-alt"></span>管理员界面</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover">
+        <tr bgcolor="f3f3f3" height="25">
+            <th>邮箱账号</th>
+            <th>电话号码</th>
+            <th>删除账号</th>
+        </tr>
+        <tr bgcolor="f3f3f3" height="25" th:each="user_list:${userList}" >
+            <td th:text="${user_list['email']}"></td>
+            <td th:text="${user_list['tel']}"></td>
+            <th><a th:href="@{'handle_user_delete/' + ${user_list['email']}}">删除</a></th>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

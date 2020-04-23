@@ -1,0 +1,17 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
+    background: url("../photo/laker.jpg") no-repeat fixed center center;
+}
+
+image {
+    height: 100px;
+    width: 200px;
+    background: #aaa;
+}

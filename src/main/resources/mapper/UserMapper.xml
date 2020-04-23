@@ -2,5 +2,38 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ciper.lakerhome.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.ciper.lakerhome.entity.User">
+        <id column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="tel" property="tel"/>
+    </resultMap>
+
+    <update id="UpdateUser">
+        update lakerhome.User
+        set password = #{password,jdbcType=VARCHAR},
+            tel = #{tel,jdbcType=VARCHAR}
+        where email = #{email,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="Register">
+        insert into lakerhome.User(email, password, tel)
+        values (#{email,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR},
+                #{tel,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="SelectByUserId" resultMap="BaseResultMap">
+        select lakerhome.User.email, password, tel
+        from lakerhome.User
+        where email = #{email,jdbcType=VARCHAR}
+    </select>
+
+    <!--登录查询-->
+    <select id="Login" resultMap="BaseResultMap">
+        select lakerhome.User.email, password, tel
+        from lakerhome.User
+        where email = #{email,jdbcType=VARCHAR}
+        and password = #{password,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

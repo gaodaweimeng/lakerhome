@@ -3,9 +3,10 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     encoding: UTF-8
+    mode: HTML5
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/lakerhome
+    url: jdbc:mysql://127.0.0.1:3306/lakerhome?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
@@ -25,10 +26,8 @@ server:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  config-location: classpath:config/mybatis-config.xml
+  config-location: classpath:mapper/config/mybatis-config.xml
   type-aliases-package: com.ciper.lakerhome.entity
-  configuration:
-    map-underscore-to-camel-case: true
-    default-fetch-size: 50
-    default-statement-timeout: 10
-    auto-mapping-unknown-column-behavior: WARNING
+
+#在spring中指定了mybatis的配置文件就不能在spring中对mybatis进行配置
+#Property 'configuration' and 'configLocation' can not specified with together

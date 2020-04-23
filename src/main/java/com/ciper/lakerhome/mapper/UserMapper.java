@@ -2,20 +2,18 @@ package com.ciper.lakerhome.mapper;
 
 import com.ciper.lakerhome.entity.User;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.type.JdbcType;
 
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserMapper {
     @Delete({
         "delete from User",
         "where email = #{email,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(String email);
+    void deleteByPrimaryKey(String email);
 
     @Insert({
         "insert into User (email, password, ",
@@ -36,7 +34,7 @@ public interface UserMapper {
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="tel", property="tel", jdbcType=JdbcType.VARCHAR)
     })
-    User selectByPrimaryKey(String email);
+    List<User> selectByPrimaryKey(@Param("email")String email);
 
     @Select({
         "select",
@@ -57,4 +55,12 @@ public interface UserMapper {
         "where email = #{email,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(User record);
+
+    int UpdateUser(String email);
+    User SelectByUserId(@Param("email") String email);
+
+    //登录查询
+    User Login(@Param("email")String email, @Param("password")String password);
+    void Register(@Param("email") String email, @Param("password")String password, @Param("tel")String tel);
+
 }
