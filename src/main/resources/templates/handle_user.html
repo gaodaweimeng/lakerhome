@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <!--管理员界面——用户管理-->
     <meta charset="UTF-8">
     <title>用户管理</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -48,7 +49,7 @@
         <tr bgcolor="f3f3f3" height="25" th:each="user_list:${userList}" >
             <td th:text="${user_list['email']}"></td>
             <td th:text="${user_list['tel']}"></td>
-            <th><a th:href="@{'handle_user_delete/' + ${user_list['email']}}">删除</a></th>
+            <th><a th:href="@{'handle_user_delete/' + ${user_list['email']}}"><span class="glyphicon glyphicon-comment"></span>删除</a></th>
         </tr>
     </table>
 </div>

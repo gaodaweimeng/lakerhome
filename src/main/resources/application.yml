@@ -3,7 +3,7 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     encoding: UTF-8
-    mode: HTML5
+    mode: HTML
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/lakerhome?useSSL=false&useUnicode=true&characterEncoding=UTF-8

@@ -16,11 +16,6 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    //注册
-    //public boolean Register(String email, String password, String tel){
-    //    return userMapper.Register(email, password, tel);
-    //}
-
     //登录
     public User Login(String email, String password){
         return userMapper.Login(email, password);

@@ -37,16 +37,6 @@ public class UserController {
         return "index";
     }
 
-    //数据库连接测试
-    @RequestMapping(value = "showUser", method = RequestMethod.GET)
-    public String showUser(Model model){
-        String tel = userService.SelectByUserId("ciperchou@qq.com").getTel();
-
-        model.addAttribute("uid",tel);
-        model.addAttribute("name","<span style='color:red'>Jerry</span>");
-        return "showUser";
-    }
-
     //登录界面
     @RequestMapping(value = "login.html", method = RequestMethod.GET)
     public String login_index(){
@@ -101,6 +91,12 @@ public class UserController {
         }
 
         return mav;
+    }
+
+    //个人主页
+    @GetMapping("personal_homepage.html")
+    public String personal_homepage(){
+        return "personal_homepage";
     }
 
     //管理员用户管理

@@ -10,7 +10,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="${driverClass}"
-                        connectionURL="${connectionUrl}"
+                        connectionURL="${connectionURL}"
                         userId="${userId}"
                         password="${password}">
         </jdbcConnection>

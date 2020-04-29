@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciper.lakerhome.mapper.NewsMapper">
+    <resultMap id="BaseResultMap" type="com.ciper.lakerhome.entity.News">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="starsId" property="starsId"/>
+    </resultMap>
+
+    <select id="selectByStarsName" resultMap="BaseResultMap">
+        select lakerhome.News.* from lakerhome.News, lakerhome.Stars
+        where Stars.name like CONCAT(CONCAT('%', #{stars_name}), '%') and News.stars_id = Stars.Id
+    </select>
+
+</mapper>

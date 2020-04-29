@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>湖人新闻</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">湖人新闻</a>
+            </div>
+
+            <div>
+                <form class="navbar-form navbar-left" method="post" action="/show_star_news">
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" name="stars_name" placeholder="输入球星名字查询"/>
+                        </label>
+                    </div>
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>主页</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover" th:each="news_list:${newsList}">
+        <tr bgcolor="f3f3f3" height="25">
+            <th>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="${news_list['title']}"></h3>
+                    </div>
+                    <div class="panel-body">
+                        <h th:text="${news_list['content']}"></h>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">评论内容</h3>
+                    </div>
+                    <div class="panel-body">
+                        <a href=""><span class="glyphicon glyphicon-comment"></span></a>
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
+    <!--用户首页-->
     <meta charset="UTF-8">
     <title>LakerHome</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
+
 <body>
-    欢迎来到湖人之家
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">欢迎来到湖人之家</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href=""><span class="glyphicon glyphicon-th-list"></span>我的新闻</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-film"></span>我的视频</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-shopping-cart"></span>交易平台</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href=""><span class="glyphicon glyphicon-unchecked"></span>我的小组</a></li>
+                <li><a href="personal_homepage.html"><p th:text="${session.user_email}"></p></a></li>
+                <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>退出登录</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
 </body>
+
 </html>
