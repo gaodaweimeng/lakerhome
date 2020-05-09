@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理我的商品</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">管理我的商品</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="owner_add_products.html"><span class="glyphicon glyphicon-plus"></span>添加商品</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover" th:each="product_list:${productList}">
+        <tr bgcolor="f3f3f3" height="25">
+            <th>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="${product_list['name']}"></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="text-align: center;">
+                            <img th:src="${product_list['place']}" width="200" height="120" alt="商品图片" style="margin: 0 auto;">
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-"></span>修改商品信息</a></li>
+                        <li class="list-group-item"><a th:href="@{'owner_delete_products/' + ${product_list['id']}}"><span class="glyphicon glyphicon-trash"></span>删除商品</a></li>
+                    </ul>
+                </div>
+            </th>
+            <th>
+                <ul class="list-group">
+                    <li class="list-group-item">品牌：<h th:text="${product_list['brand']}"></h></li>
+                    <li class="list-group-item">颜色：<h th:text="${product_list['color']}"></h></li>
+                    <li class="list-group-item">价格：<h th:text="${product_list['price']}"></h></li>
+                    <li class="list-group-item">售出人：<h th:text="${product_list['owner']}"></h></li>
+                </ul>
+            </th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

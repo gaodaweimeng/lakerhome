@@ -65,7 +65,7 @@ public class VideoController {
     @GetMapping("handle_delete_video/{id}")
     public String handle_delete_video(@PathVariable("id") Integer id){
         videoMapper.deleteByPrimaryKey(id);
-        return "handle_video";
+        return "redirect:/handle_video";
     }
 
     //视频管理——添加视频

@@ -131,7 +131,7 @@ public class UserController {
     @GetMapping("handle_user_delete/{email}")
     public String deleteUserByUserId(@PathVariable("email") String email){
         userMapper.deleteByPrimaryKey(email);
-        return "handle_user";
+        return "redirect:/show_all_user";
     }
 
 }

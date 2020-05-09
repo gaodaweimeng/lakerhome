@@ -87,7 +87,7 @@ public class NewsController {
     @GetMapping("handle_delete_news/{id}")
     public String handle_delete_news(@PathVariable("id") Integer id){
         newsMapper.deleteByPrimaryKey(id);
-        return "handle_news";
+        return "redirect:/handle_news";
     }
 
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciper.lakerhome.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.ciper.lakerhome.entity.Product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="brand" property="brand"/>
+        <result column="color" property="color"/>
+        <result column="price" property="price"/>
+        <result column="dealState" property="dealState"/>
+        <result column="owner" property="owner"/>
+        <result column="place" property="place"/>
+    </resultMap>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+        select lakerhome.Product.* from lakerhome.Product
+        where Product.name like CONCAT(CONCAT('%', #{name}), '%')
+    </select>
+
+    <select id="selectByOwner" resultMap="BaseResultMap">
+        select lakerhome.Product.* from lakerhome.Product
+        where owner = #{owner,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectShoppingCart" resultMap="BaseResultMap">
+        select lakerhome.Product.* from lakerhome.Product , lakerhome.ShoppingCart
+        where Product.Id = ShoppingCart.product_id and lakerhome.Product.deal_state = 1 and ShoppingCart.user_id = #{user_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="cartCheckout" resultMap="BaseResultMap">
+        select lakerhome.Product.* from lakerhome.Product, lakerhome.ShoppingCart
+        where lakerhome.ShoppingCart.user_id = #{user_id, jdbcType=VARCHAR}
+        and lakerhome.Product.Id = lakerhome.ShoppingCart.product_id
+    </select>
+
+</mapper>
