@@ -1,11 +1,132 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
+    <!--个人主页-->
     <meta charset="UTF-8">
     <title>个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <style type="text/css">
+        .modal-backdrop {
+            filter: alpha(opacity=0)!important;
+            opacity: 0!important;
+        }
+    </style>
 </head>
+
 <body>
-    欢迎您
-    <p th:text="${session.user_email}"></p>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">个人主页</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">Link</a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>欢迎您：<p th:text="${session.user_email}"></p></li>
+                        <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
+                    </ul>
+                </div>
+
+            </nav>
+            <div class="jumbotron">
+                <h1>
+                    您好，欢迎使用湖人家园
+                </h1>
+                <p th:text="${session.user_email}">
+
+                </p>
+
+                <div>
+                    <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                        选择喜欢的球星
+                    </button>
+                    <!-- 模态框（Modal） -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                </div>
+                                <form id="form_data" th:action="@{'select_stars'}">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="stars">选择你喜爱的球星(按住 shift 键，可以选取多个选项):</label>
+                                            <select multiple class="form-control" id="stars" name="stars">
+                                                <option>勒布朗.詹姆斯</option>
+                                                <option>科比.布莱恩特</option>
+                                                <option>安东尼.戴维斯</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            确定
+                                        </button>
+                                    </div>
+                                </form>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal -->
+                    </div>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+            <h2>
+                1
+            </h2>
+            <p>
+                第一部分
+            </p>
+            <p>
+                <a class="btn" href="#">View details »</a>
+            </p>
+        </div>
+        <div class="col-md-4 column">
+            <h2>
+                2
+            </h2>
+            <p>
+                第二部分
+            </p>
+            <p>
+                <a class="btn" href="#">View details »</a>
+            </p>
+        </div>
+        <div class="col-md-4 column">
+            <h2>
+                3
+            </h2>
+            <p>
+                第三部分
+            </p>
+            <p>
+                <a class="btn" href="#">View details »</a>
+            </p>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>

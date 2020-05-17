@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <!--个人主页-->
+    <meta charset="UTF-8">
+    <title>发帖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">发帖</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><p th:text="${session.user_email}"></p></li>
+                        <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="jumbotron">
+                <div class="panel panel-primary">
+                    <form id="form_data" action="user_add_note" method="post">
+                        <div class="panel-heading">
+                            <div class="modal-body">
+                                标题:<textarea class="form-control" rows="1" name="title" placeholder="想一个抓人眼球的标题吧！"></textarea>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="modal-body">
+                                内容:<textarea class="form-control" rows="15" name="content" placeholder="写下你的故事与想法"></textarea>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">
+                                        提交
+                                    </button>
+                                </div>
+                            <!--
+                                <a href=""><span class="glyphicon glyphicon-comment"></span>查看评论</a>
+                            -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <!--测试页面-->
-    <title>第一个Thymleaf页面</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <p th:text="'用户ID：' + ${uid}"></p>
-    <p th:utext="'用户名称：' + ${name}"></p>
+
+    <div class="container">
+        <form th:action="@{'select'}">
+            <div class="form-group">
+                <label for="stars">选择你喜爱的球星(按住 shift 键，可以选取多个选项):</label>
+                <select multiple class="form-control" id="stars" name="stars">
+                    <option>勒布朗.詹姆斯</option>
+                    <option>科比.布莱恩特</option>
+                    <option>安东尼.戴维斯</option>
+                    <option>勒布朗.詹姆斯</option>
+                    <option>科比.布莱恩特</option>
+                    <option>安东尼.戴维斯</option>
+                </select>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">确认</button>
+        </form>
+    </div>
+
 </body>
 
 </html>

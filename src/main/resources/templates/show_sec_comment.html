@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看评论</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">二级评论</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/show_user_news"><span class="glyphicon glyphicon-home"></span>返回新闻</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover" th:each="sec_list:${sec}">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="${sec_list['user_id']}"></h3>&nbsp;回复&nbsp;<h3 class="panel-title" th:text="${sec_list['reply_user_id']}"></h3>
+            </div>
+            <div class="panel-body">
+                <h th:text="${sec_list['content']}"></h>
+            </div>
+            <div class="panel-footer">
+                <form id="sec_form_data" th:action="@{'/sec_reply_comment/' + ${sec_list['id']}}" method="post">
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="1" name="content" placeholder="评论"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </table>
+</div>
+</body>
+</html>

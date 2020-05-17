@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciper.lakerhome.mapper.NoteCommentMapper">
+    <resultMap id="BaseResultMap" type="com.ciper.lakerhome.entity.NoteComment">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time" javaType="java.sql.Timestamp"/>
+        <result column="user_id" property="user_id"/>
+        <result column="reply_user_id" property="reply_user_id"/>
+        <result column="pid" property="pid"/>
+        <result column="note_id" property="note_id"/>
+    </resultMap>
+
+    <select id="selectTopByNoteId" resultMap="BaseResultMap">
+        select lakerhome.NoteComment.* from lakerhome.NoteComment
+        where lakerhome.NoteComment.note_id = #{note_id,jdbcType=INTEGER}
+          and NoteComment.pid IS NULL
+    </select>
+
+    <select id="selectSecById" resultMap="BaseResultMap">
+        select lakerhome.NoteComment.* from lakerhome.NoteComment
+        where lakerhome.NoteComment.note_id = #{note_id,jdbcType=INTEGER}
+          and NoteComment.pid IS Not NULL and NoteComment.pid = #{pid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByKey" resultMap="BaseResultMap">
+        select lakerhome.NoteComment.* from lakerhome.NoteComment
+        where lakerhome.NoteComment.Id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.ciper.lakerhome.entity.NoteComment">
+        insert into lakerhome.NoteComment(content, user_id, reply_user_id, pid, note_id)
+        VALUES (#{content,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR }, #{reply_user_id,jdbcType=VARCHAR}, #{pid, jdbcType=INTEGER}, #{note_id, jdbcType=INTEGER})
+    </insert>
+
+</mapper>

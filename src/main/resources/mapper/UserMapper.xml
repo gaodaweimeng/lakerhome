@@ -36,4 +36,12 @@
         and password = #{password,jdbcType=VARCHAR}
     </select>
 
+    <insert id="insert_connect">
+        insert into lakerhome.User_Stars_Connection (stars_id, user_id)
+            (
+                select #{starsId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}
+                from dual where not exists(
+                select stars_id , user_id from User_Stars_Connection where stars_id = #{starsId,jdbcType=INTEGER} and user_id = #{userId,jdbcType=VARCHAR}
+            ))
+    </insert>
 </mapper>

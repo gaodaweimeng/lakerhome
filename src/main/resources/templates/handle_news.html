@@ -66,7 +66,7 @@
                     <h3 class="panel-title">评论内容</h3>
                 </div>
                 <div class="panel-body">
-                    <a href=""><span class="glyphicon glyphicon-comment"></span></a>
+                    <a th:href="@{'show_comment/' + ${handle_news_list['id']}}"><span class="glyphicon glyphicon-comment"></span>查看评论</a>
                 </div>
             </div>
         </tr>

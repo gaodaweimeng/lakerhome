@@ -60,4 +60,6 @@ public interface NewsMapper {
     int updateByPrimaryKey(News record);
 
     List<News> selectByStarsName(@Param("stars_name") String stars_name);
+
+    List<News> selectByUserId(@Param("email") String email);
 }

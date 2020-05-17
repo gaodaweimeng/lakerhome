@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>球迷社区</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">球迷社区</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="user_add_note.html"><span class="glyphicon glyphicon-plus"></span>发帖</a></li>
+
+                <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+</div>
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover" th:each="note_list:${noteList}">
+        <tr bgcolor="f3f3f3" height="25">
+            <th>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:text="${note_list['title']}"></h3>
+                    </div>
+                    <div class="panel-body">
+                        <h th:text="${note_list['content']}"></h>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="modal-footer">
+                            帖主：<h th:text="${note_list['user_id']}"></h>
+                        </div>
+
+                        <a th:href="@{'/show_select_note/' + ${note_list['id']}}" class="btn btn-primary btn-sm" role="button">查看详情</a>
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

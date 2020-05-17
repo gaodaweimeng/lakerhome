@@ -1,7 +1,10 @@
 package com.ciper.lakerhome.controller;
 
 import com.ciper.lakerhome.entity.User;
+import com.ciper.lakerhome.entity.UserStarsConnection;
+import com.ciper.lakerhome.mapper.StarsMapper;
 import com.ciper.lakerhome.mapper.UserMapper;
+import com.ciper.lakerhome.mapper.UserStarsConnectionMapper;
 import com.ciper.lakerhome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +21,16 @@ import java.util.List;
 public class UserController {
     final UserService userService;
     final UserMapper userMapper;
+    final StarsMapper starsMapper;
+    final UserStarsConnectionMapper userStarsConnectionMapper;
 
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper, StarsMapper starsMapper, UserStarsConnectionMapper userStarsConnectionMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.starsMapper = starsMapper;
+        this.userStarsConnectionMapper = userStarsConnectionMapper;
     }
 
     //首页
@@ -93,10 +100,38 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("user_index.html")
+    public String user_index(){
+        return "user_index";
+    }
+
     //个人主页
     @GetMapping("personal_homepage.html")
     public String personal_homepage(){
         return "personal_homepage";
+    }
+
+    //登录之后，新闻，视频都提示去个人主页模块选择喜爱的球星
+    // 在个人主页部分选择你喜爱的球星，提交后
+    // 你的新闻和你的视频两个模块开始展示你订阅的新闻以及视频内容
+    @GetMapping("select_stars")
+    public String select_stars(HttpServletRequest request){
+        String[] list = request.getParameterValues("stars");
+
+        for(String stars : list){
+            //通过球星名字查询StarsID
+            Integer starsId = starsMapper.selectByStarsName(stars).getId();
+            //（session.user_id, starsId)->插入用户球星关联表
+            HttpSession session = request.getSession();
+            String userId = session.getAttribute("user_email").toString();
+
+            List<UserStarsConnection> list_connect = userStarsConnectionMapper.selectByUserId(userId);
+            for(UserStarsConnection connection: list_connect){
+                userStarsConnectionMapper.deleteByPrimaryKey(connection.getId());
+            }
+            userStarsConnectionMapper.insert(starsId, userId);
+        }
+        return "forward:/personal_homepage.html";
     }
 
     //管理员用户管理

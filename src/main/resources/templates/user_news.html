@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>湖人新闻</title>
+    <title>我的新闻</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,22 +13,11 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">湖人新闻</a>
-            </div>
-
-            <div>
-                <form class="navbar-form navbar-left" method="post" action="/show_star_news">
-                    <div class="form-group">
-                        <label>
-                            <input type="text" class="form-control" name="stars_name" placeholder="输入球星名字查询"/>
-                        </label>
-                    </div>
-                    <button type="submit">搜索</button>
-                </form>
+                <a class="navbar-brand">我的新闻</a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>主页</a></li>
+                <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
             </ul>
 
         </div>
@@ -50,18 +39,22 @@
                     <div class="panel-body">
                         <h th:text="${news_list['content']}"></h>
                     </div>
+                    <div class="panel-footer">
+                        <form id="form_data" th:action="@{'/news_reply_comment/' + ${news_list['id']}}" method="post">
+                            <div class="modal-body">
+                                评论:<textarea class="form-control" rows="1" name="content"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    提交
+                                </button>
+                            </div>
+                        </form>
+                        <a th:href="@{'show_comment/' + ${news_list['id']}}"><span class="glyphicon glyphicon-comment"></span>查看评论</a>
+                    </div>
                 </div>
             </th>
-            <th>
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">登录查看评论</h3>
-                    </div>
-                    <div class="panel-body">
-                        <a href="login.html"><span class="glyphicon glyphicon-log-in"></span>登录</a>
-                    </div>
-                </div>
-            </th>
+        </tr>
     </table>
 </div>
 </body>

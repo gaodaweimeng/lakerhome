@@ -63,4 +63,6 @@ public interface UserMapper {
     User Login(@Param("email")String email, @Param("password")String password);
     void Register(@Param("email") String email, @Param("password")String password, @Param("tel")String tel);
 
+    void insert_connect(@Param("starsId") Integer starsId, @Param("userId") String userId);
+
 }

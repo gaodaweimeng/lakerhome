@@ -2,28 +2,27 @@ package com.ciper.lakerhome.mapper;
 
 import com.ciper.lakerhome.entity.UserStarsConnection;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.type.JdbcType;
 
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserStarsConnectionMapper {
     @Delete({
         "delete from User_Stars_Connection",
         "where Id = #{id,jdbcType=INTEGER}"
     })
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKey(@Param("id") Integer id);
 
     @Insert({
-        "insert into User_Stars_Connection (Id, stars_id, ",
+        "insert into User_Stars_Connection (stars_id, ",
         "user_id)",
-        "values (#{id,jdbcType=INTEGER}, #{starsId,jdbcType=INTEGER}, ",
+        "values (#{starsId,jdbcType=INTEGER}, ",
         "#{userId,jdbcType=VARCHAR})"
     })
-    int insert(UserStarsConnection record);
+    void insert(@Param("starsId") Integer starsId, @Param("userId") String userId);
+
 
     @Select({
         "select",
@@ -56,5 +55,18 @@ public interface UserStarsConnectionMapper {
           "user_id = #{userId,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(UserStarsConnection record);
+    void updateByPrimaryKey(@Param("starsId") Integer starsId,@Param("userId") String userId, @Param("id") Integer id);
+
+    @Select({
+            "select",
+            "Id, stars_id, user_id",
+            "from User_Stars_Connection",
+            "where user_id = #{userId,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="stars_id", property="starsId", jdbcType=JdbcType.INTEGER),
+            @Result(column="user_id", property="userId", jdbcType=JdbcType.VARCHAR)
+    })
+    List<UserStarsConnection> selectByUserId(@Param("userId") String userId);
 }
