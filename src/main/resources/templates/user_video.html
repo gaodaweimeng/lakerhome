@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>湖人视频</title>
+    <title>我的视频</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,7 +13,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">湖人视频</a>
+                <a class="navbar-brand">我的视频</a>
             </div>
 
             <div>
@@ -28,8 +28,7 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
-                <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>主页</a></li>
+                <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
             </ul>
 
         </div>
@@ -52,9 +51,6 @@
                         <video width="320" height="240" controls="controls">
                             <source th:src="${video_list['place']}" type="video/mp4"/>
                         </video>
-                    </div>
-                    <div class="panel-footer">
-                        <a href="login.html">登录订阅视频</a>
                     </div>
                 </div>
             </th>

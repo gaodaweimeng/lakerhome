@@ -29,6 +29,11 @@
         where lakerhome.NewsComment.Id = #{id,jdbcType=INTEGER}
     </select>
 
+    <delete id="deleteByNewsId" parameterType="com.ciper.lakerhome.entity.NewsComment">
+        delete from lakerhome.NewsComment
+        where news_id = #{news_id,jdbcType=INTEGER}
+    </delete>
+
     <insert id="insert" parameterType="com.ciper.lakerhome.entity.NewsComment">
         insert into lakerhome.NewsComment(content, user_id, reply_user_id, pid, news_id)
         VALUES (#{content,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR }, #{reply_user_id,jdbcType=VARCHAR}, #{pid, jdbcType=INTEGER}, #{news_id, jdbcType=INTEGER})

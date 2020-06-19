@@ -1,6 +1,7 @@
 package com.ciper.lakerhome.controller;
 
 import com.ciper.lakerhome.entity.Product;
+import com.ciper.lakerhome.entity.Shoppingcart;
 import com.ciper.lakerhome.mapper.ProductMapper;
 import com.ciper.lakerhome.mapper.ShoppingcartMapper;
 import com.ciper.lakerhome.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -60,11 +62,48 @@ public class ProductController {
         return "user_sell";
     }
 
+    //作为卖家——查看商品(根据交易状态查询)
+    //交易中
+    @RequestMapping("owner_product_dealing")
+    public String product_dealing(Model model, HttpSession session){
+        Integer deal_state = 1;
+        String email = session.getAttribute("user_email").toString();
+
+        List<Product> product_list = productMapper.selectByDealState(email, deal_state);
+        model.addAttribute(product_list);
+        return "user_sell";
+    }
+
+    //交易完成
+    @RequestMapping("owner_product_complete")
+    public String product_complete(Model model, HttpSession session){
+        Integer deal_state = 2;
+        String email = session.getAttribute("user_email").toString();
+
+        List<Product> product_list = productMapper.selectByDealState(email, deal_state);
+        model.addAttribute(product_list);
+        return "user_sell";
+    }
+
     //作为卖家——删除商品
     @GetMapping("owner_delete_products/{id}")
     public String delete_products(@PathVariable("id") Integer id){
+        shoppingcartMapper.deleteByProductId(id);
         productMapper.deleteByPrimaryKey(id);
-        return "user_sell";
+        return "redirect:/owner_show_products";
+    }
+
+    //作为卖家——修改商品
+    @RequestMapping("owner_modify_products/{id}")
+    public String modify_products(HttpServletRequest request, @PathVariable("id") Integer id){
+        String name = request.getParameter("name");
+        String brand = request.getParameter("brand");
+        String color = request.getParameter("color");
+        Integer price = Integer.valueOf(request.getParameter("price"));
+        String place = request.getParameter("place");
+
+        productMapper.modifyProduct(name, brand, color, price, place, id);
+        return "redirect:/owner_show_products";
     }
 
     //作为卖家——添加商品
@@ -83,8 +122,9 @@ public class ProductController {
         Integer price = Integer.valueOf(request.getParameter("price"));
         String owner = session.getAttribute("user_email").toString();
         String place = request.getParameter("place");
+
         productMapper.insert(name, brand, color, price, owner, place);
-        return "user_sell";
+        return "redirect:/owner_show_products";
     }
 
 
@@ -153,4 +193,23 @@ public class ProductController {
         model.addAttribute("price",sum);
         return "cart_checkout";
     }
+
+    //商品管理
+    @RequestMapping("product_handle")
+    public String product_handle(Model model) {
+        List<Product> product_list = productMapper.selectAllProduct();
+        model.addAttribute("productList", product_list);
+        return "handle_product";
+    }
+
+    //商品管理——商品名称模糊查询
+    @PostMapping("handle_select_products")
+    public String handle_select_products(HttpServletRequest request, Model model){
+        String name = request.getParameter("product_name");
+        List<Product> product_list = productMapper.selectByName(name);
+        model.addAttribute(product_list);
+        return "handle_product";
+    }
 }
+
+

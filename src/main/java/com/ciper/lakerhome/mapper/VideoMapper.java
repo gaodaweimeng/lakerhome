@@ -60,4 +60,6 @@ public interface VideoMapper {
     int updateByPrimaryKey(Video record);
 
     List<Video> selectByStarsName(@Param("stars_name") String stars_name);
+
+    List<Video> selectByUserVideo(@Param("email") String email);
 }

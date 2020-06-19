@@ -7,6 +7,12 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <style type="text/css">
+        .modal-backdrop {
+            filter: alpha(opacity=0)!important;
+            opacity: 0!important;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -17,10 +23,13 @@
             </div>
 
             <ul class="nav navbar-nav navbar-left">
+                <li><a href="/owner_product_dealing">交易中商品</a></li>
+                <li><a href="/owner_product_complete">交易完成商品</a></li>
                 <li><a href="owner_add_products.html"><span class="glyphicon glyphicon-plus"></span>添加商品</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/owner_show_products">返回我的商品管理</a></li>
                 <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
             </ul>
 
@@ -46,8 +55,43 @@
                         </div>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-"></span>修改商品信息</a></li>
-                        <li class="list-group-item"><a th:href="@{'owner_delete_products/' + ${product_list['id']}}"><span class="glyphicon glyphicon-trash"></span>删除商品</a></li>
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                修改商品信息
+                            </button>
+                            <!-- 模态框（Modal） -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                        </div>
+                                        <form id="form_data" th:action="@{'/owner_modify_products/'+ ${product_list['id']}}">
+                                            <div class="modal-body">
+                                                商品名称:<textarea class="form-control" rows="1" name="name" placeholder="名称"></textarea>
+                                                品牌:<textarea class="form-control" rows="1" name="brand" placeholder="nike/adidas/anta/..."></textarea>
+                                                颜色:<textarea class="form-control" rows="1" name="color" placeholder="白色/黄色/红色"></textarea>
+                                                价格:<textarea class="form-control" rows="1" name="price" placeholder="100"></textarea>
+                                                图片地址:<textarea class="form-control" rows="1" name="place" placeholder="photo/xxx.jpg"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    确定
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal -->
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{'owner_delete_products/' + ${product_list['id']}}"><span class="glyphicon glyphicon-trash"></span>删除商品</a>
+                        </li>
                     </ul>
                 </div>
             </th>

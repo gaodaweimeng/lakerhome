@@ -31,7 +31,24 @@
     <select id="cartCheckout" resultMap="BaseResultMap">
         select lakerhome.Product.* from lakerhome.Product, lakerhome.ShoppingCart
         where lakerhome.ShoppingCart.user_id = #{user_id, jdbcType=VARCHAR}
+        and lakerhome.Product.deal_state = 1
         and lakerhome.Product.Id = lakerhome.ShoppingCart.product_id
     </select>
+
+    <select id="selectByDealState" resultMap="BaseResultMap">
+        select lakerhome.Product.* from lakerhome.Product
+        where owner = #{owner,jdbcType=VARCHAR}
+        and deal_state = #{dealState, jdbcType=INTEGER}
+    </select>
+
+    <update id="modifyProduct" parameterType="com.ciper.lakerhome.entity.Product">
+        update lakerhome.Product
+        set Product.name = #{name, jdbcType=VARCHAR},
+            Product.brand = #{brand, jdbcType=VARCHAR},
+            Product.color = #{color, jdbcType=VARCHAR},
+            Product.price = #{price, jdbcType=INTEGER},
+            Product.place = #{place, jdbcType=VARCHAR}
+        where Id = #{id, jdbcType=INTEGER}
+    </update>
 
 </mapper>

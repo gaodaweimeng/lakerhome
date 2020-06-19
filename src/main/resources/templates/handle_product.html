@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!--管理员界面——商品管理-->
+    <meta charset="UTF-8">
+    <title>商品管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <style type="text/css">
+        .modal-backdrop {
+            filter: alpha(opacity=0)!important;
+            opacity: 0!important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">商品管理界面</a>
+                </div>
+
+                <div>
+                    <form class="navbar-form navbar-left" method="post" action="/handle_select_products">
+                        <div class="form-group">
+                            <label>
+                                <input type="text" class="form-control" name="product_name" placeholder="输入商品名称"/>
+                            </label>
+                        </div>
+                        <button type="submit">搜索</button>
+                    </form>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="admin_index.html"><span class="glyphicon glyphicon-share-alt"></span>管理员界面</a></li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <div class="panel panel-primary">
+            <table class="table table-hover">
+                <div class="panel-heading">
+                    <div class="modal-body">
+                        <h2 class="form-signin-heading" align="center">商品管理</h2>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="modal-body">
+                        <tr bgcolor="f3f3f3" height="25">
+                            <th>商品名称</th>
+                            <th>卖家账号</th>
+                            <th>
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    商品状态
+                                </button>
+                                <!-- 模态框（Modal） -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h2>0—未交易，1—交易中，2—交易完成</h2>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                </div>
+                            </th>
+                        </tr>
+                        <tr bgcolor="f3f3f3" height="25" th:each="product_list:${productList}" >
+                            <td th:text="${product_list['name']}"></td>
+                            <td th:text="${product_list['owner']}"></td>
+                            <td th:text="${product_list['dealState']}"></td>
+                        </tr>
+                    </div>
+                </div>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

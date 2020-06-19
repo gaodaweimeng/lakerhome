@@ -40,18 +40,27 @@
     <br>
     <br>
     <br>
-    <table class="table table-hover">
-        <tr bgcolor="f3f3f3" height="25">
-            <th>邮箱账号</th>
-            <th>电话号码</th>
-            <th>删除账号</th>
-        </tr>
-        <tr bgcolor="f3f3f3" height="25" th:each="user_list:${userList}" >
-            <td th:text="${user_list['email']}"></td>
-            <td th:text="${user_list['tel']}"></td>
-            <th><a th:href="@{'handle_user_delete/' + ${user_list['email']}}"><span class="glyphicon glyphicon-comment"></span>删除</a></th>
-        </tr>
-    </table>
+    <div class="panel panel-primary">
+        <table class="table table-hover">
+            <div class="panel-heading">
+                <div class="modal-body">
+                    <h2 class="form-signin-heading" align="center">用户管理</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="modal-body">
+                    <tr bgcolor="f3f3f3" height="25">
+                        <th>邮箱账号</th>
+                        <th>电话号码</th>
+                    </tr>
+                    <tr bgcolor="f3f3f3" height="25" th:each="user_list:${userList}" >
+                        <td th:text="${user_list['email']}"></td>
+                        <td th:text="${user_list['tel']}"></td>
+                    </tr>
+                </div>
+            </div>
+        </table>
+    </div>
 </div>
 
 </body>

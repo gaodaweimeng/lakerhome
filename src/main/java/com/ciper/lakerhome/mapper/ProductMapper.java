@@ -62,6 +62,23 @@ public interface ProductMapper {
     })
     List<Product> selectAll();
 
+    @Select({
+            "select",
+            "Id, name, brand, color, price, deal_state, owner, place",
+            "from Product"
+    })
+    @Results({
+            @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="brand", property="brand", jdbcType=JdbcType.VARCHAR),
+            @Result(column="color", property="color", jdbcType=JdbcType.VARCHAR),
+            @Result(column="price", property="price", jdbcType=JdbcType.INTEGER),
+            @Result(column="deal_state", property="dealState", jdbcType=JdbcType.INTEGER),
+            @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+            @Result(column="place", property="place", jdbcType=JdbcType.VARCHAR)
+    })
+    List<Product> selectAllProduct();
+
     @Update({
         "update Product",
         "set name = #{name,jdbcType=VARCHAR},",
@@ -89,5 +106,9 @@ public interface ProductMapper {
     List<Product> selectShoppingCart(@Param("user_id") String user_id);
 
     List<Product> cartCheckout(@Param("user_id") String user_id);
+
+    List<Product> selectByDealState(@Param("owner") String owner, @Param("dealState") Integer dealState);
+
+    void modifyProduct(@Param("name") String name, @Param("brand") String brand, @Param("color") String color, @Param("price") Integer price, @Param("place") String place, @Param("id") Integer id);
 
 }

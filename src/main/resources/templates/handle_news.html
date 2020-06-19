@@ -2,11 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新闻管理</title>
+    <title>我的新闻</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <style type="text/css">
+        .modal-backdrop {
+            filter: alpha(opacity=0)!important;
+            opacity: 0!important;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -34,7 +40,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="admin_index.html"><span class="glyphicon glyphicon-home"></span>管理员界面</a></li>
             </ul>
-
         </div>
     </nav>
 </div>
@@ -54,21 +59,35 @@
                     <div class="panel-body">
                         <h th:text="${handle_news_list['content']}"></h>
                     </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-trash">删除</span>
+                        </button>
+                        <!-- 模态框（Modal） -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="height: 400px; overflow: auto; pointer-events: auto">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2>确认删除该新闻？</h2>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <a th:href="@{'handle_delete_news/' + ${handle_news_list['id']}}">确定</a>
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+                    </div>
                 </div>
             </th>
-            <th>
-                <a th:href="@{'handle_delete_news/' + ${handle_news_list['id']}}"><span class="glyphicon glyphicon-trash">删除</span></a>
-            </th>
-        </tr>
-        <tr bgcolor="f3f3f3" height="25">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">评论内容</h3>
-                </div>
-                <div class="panel-body">
-                    <a th:href="@{'show_comment/' + ${handle_news_list['id']}}"><span class="glyphicon glyphicon-comment"></span>查看评论</a>
-                </div>
-            </div>
         </tr>
     </table>
 </div>

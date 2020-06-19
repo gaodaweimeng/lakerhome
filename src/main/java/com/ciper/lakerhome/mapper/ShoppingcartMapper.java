@@ -55,4 +55,18 @@ public interface ShoppingcartMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Shoppingcart record);
+
+
+    @Select({
+            "select",
+            "Id, user_id, product_id",
+            "from ShoppingCart",
+            "where product_id = #{productId,jdbcType=INTEGER}"
+    })
+    @Results({
+            @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="user_id", property="userId", jdbcType=JdbcType.VARCHAR),
+            @Result(column="product_id", property="productId", jdbcType=JdbcType.INTEGER)
+    })
+    Shoppingcart selectByProductId(@Param("productId") Integer productId);
 }

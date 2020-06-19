@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -94,18 +95,19 @@ public class NewsController {
         String  stars_name = request.getParameter("star_name");
         Integer stars_id = starsMapper.selectByStarsName(stars_name).getId();
         newsMapper.insert(title, content, stars_id);
-        return "handle_news";
+        return "redirect:/handle_news";
     }
 
     //新闻管理——删除新闻
     @GetMapping("handle_delete_news/{id}")
     public String handle_delete_news(@PathVariable("id") Integer id){
+        newsCommentMapper.deleteByNewsId(id);
         newsMapper.deleteByPrimaryKey(id);
         return "redirect:/handle_news";
     }
 
     //新闻评论——查看一级评论
-    @GetMapping("show_comment/{id}")
+    @RequestMapping("show_comment/{id}")
     public String show_news_comment(@PathVariable("id") Integer id, Model model){
         List<NewsComment> topCommentList = newsCommentMapper.selectTopByNewsId(id);
         model.addAttribute("top", topCommentList);
@@ -114,7 +116,7 @@ public class NewsController {
     }
 
     //新闻评论——查看二级评论
-    @GetMapping("show_sec_comment/{id}")
+    @RequestMapping("show_sec_comment/{id}")
     public String show_sec_comment(@PathVariable("id") Integer id, Model model){
         //id 为一级评论的主键
         //如何获取一级评论的所有二级评论 ->>两个参数(新闻ID，父ID，id)
@@ -126,7 +128,7 @@ public class NewsController {
     }
 
     //新闻评论——添加一级评论 ->>一级评论
-    @PostMapping("news_reply_comment/{id}")
+    @RequestMapping("news_reply_comment/{id}")
     public String news_reply_comment(HttpServletRequest request, @PathVariable("id") Integer id){
         HttpSession session = request.getSession();
 
@@ -139,7 +141,7 @@ public class NewsController {
     }
 
     //新闻评论——回复一级评论 ->>二级评论
-    @PostMapping("top_reply_comment/{id}")
+    @RequestMapping("top_reply_comment/{id}")
     public String top_reply_news_comment(HttpServletRequest request, @PathVariable("id") Integer id){
         NewsComment newsComment = newsCommentMapper.selectByKey(id);
         HttpSession session = request.getSession();
@@ -148,15 +150,19 @@ public class NewsController {
         String user_id = session.getAttribute("user_email").toString();
         String reply_user_id = newsComment.getUser_id();
         Integer news_id = newsComment.getNews_id();
+        Integer pid = newsComment.getPid();
 
-        newsCommentMapper.insert(content, user_id, reply_user_id, id , news_id);
-
+        if(pid==null){
+            newsCommentMapper.insert(content, user_id, reply_user_id, id , news_id);
+        }else {
+            newsCommentMapper.insert(content, user_id, reply_user_id, pid , news_id);
+        }
         return "redirect:/show_sec_comment/{id}";
     }
 
     //新闻评论——回复二级评论 ->>二级评论
-    @PostMapping("sec_reply_comment/{id}")
-    public String sec_reply_news_comment(HttpServletRequest request, @PathVariable("id") Integer id){
+    @RequestMapping("sec_reply_comment/{id}")
+    public String sec_reply_news_comment(HttpServletRequest request, @PathVariable("id") Integer id, Model model){
         NewsComment newsComment = newsCommentMapper.selectByKey(id);
         HttpSession session = request.getSession();
 
@@ -168,7 +174,10 @@ public class NewsController {
 
         newsCommentMapper.insert(content, user_id, reply_user_id, pid , news_id);
 
-        return "redirect:/show_sec_comment/{id}";
+        List<NewsComment> secCommentList = newsCommentMapper.selectSecById(news_id, pid);
+        model.addAttribute("sec", secCommentList);
+
+        return "show_sec_comment";
     }
 
 }

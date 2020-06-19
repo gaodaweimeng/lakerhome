@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,15 +29,33 @@ public class NoteController {
     }
 
     //用户查看所有的帖子
-    @GetMapping("show_all_note")
+    @RequestMapping("show_all_note")
     public String show_all_note(Model model){
         List<Note> note_list = noteMapper.selectAll();
         model.addAttribute(note_list);
         return "show_all_note";
     }
 
+    //帖子标题模糊查询
+    @RequestMapping("find_note")
+    public String find_note(Model model, HttpServletRequest request){
+        String title = request.getParameter("title");
+        List<Note> note_list = noteMapper.selectByTitleWord(title);
+        model.addAttribute(note_list);
+        return "show_all_note";
+    }
+
+    //根据帖子类型查看
+    @RequestMapping("show_type_note")
+    public String show_type_note(Model model,HttpServletRequest request) {
+        String type = request.getParameter("type");
+        List<Note> note_list = noteMapper.selectByType(type);
+        model.addAttribute(note_list);
+        return "show_all_note";
+    }
+
     //查看帖子——详情查看
-    @GetMapping("show_select_note/{id}")
+    @RequestMapping("show_select_note/{id}")
     public String show_select_note(Model model, @PathVariable("id") Integer id){
         Note note = noteMapper.selectByKey(id);
         model.addAttribute("note",note);
@@ -49,8 +68,8 @@ public class NoteController {
     }
 
     //帖子评论——查看二级评论
-    @GetMapping("note_show_sec_comment/{id}")
-    public String note_show_sec_comment(@PathVariable("id") Integer id, Model model){
+    @RequestMapping("note_show_sec_comment/{sec_id}")
+    public String note_show_sec_comment(@PathVariable("sec_id") Integer id, Model model, HttpSession session){
         //id 为一级评论的主键
         //如何获取一级评论的所有二级评论 ->>两个参数(帖子ID，父ID)
         Integer note_id = noteCommentMapper.selectByKey(id).getNote_id();
@@ -61,7 +80,7 @@ public class NoteController {
     }
 
     //帖子评论——添加一级评论 ->>一级评论
-    @PostMapping("note_reply_comment/{id}")
+    @RequestMapping("note_reply_comment/{id}")
     public String note_reply_comment(HttpServletRequest request, @PathVariable("id") Integer id){
         HttpSession session = request.getSession();
 
@@ -74,7 +93,7 @@ public class NoteController {
     }
 
     //新闻评论——回复一级评论 ->>二级评论
-    @PostMapping("note_top_reply_comment/{id}")
+    @RequestMapping("note_top_reply_comment/{id}")
     public String note_top_reply_comment(HttpServletRequest request, @PathVariable("id") Integer id){
         NoteComment noteComment = noteCommentMapper.selectByKey(id);
         HttpSession session = request.getSession();
@@ -90,8 +109,8 @@ public class NoteController {
     }
 
     //帖子评论——回复二级评论 ->>二级评论
-    @PostMapping("sec_reply_note_comment/{id}")
-    public String sec_reply_note_comment(HttpServletRequest request, @PathVariable("id") Integer id){
+    @RequestMapping("sec_reply_note_comment/{id}")
+    public String sec_reply_note_comment(HttpServletRequest request, @PathVariable("id") Integer id, Model model){
         NoteComment noteComment = noteCommentMapper.selectByKey(id);
         HttpSession session = request.getSession();
 
@@ -103,7 +122,10 @@ public class NoteController {
 
         noteCommentMapper.insert(content, user_id, reply_user_id, pid , note_id);
 
-        return "redirect:/note_show_sec_comment/{id}";
+        List<NoteComment> secCommentList = noteCommentMapper.selectSecById(note_id, pid);
+        model.addAttribute("sec", secCommentList);
+
+        return "show_note_sec_comment";
     }
 
     //用户发帖
@@ -119,8 +141,9 @@ public class NoteController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String user_id = session.getAttribute("user_email").toString();
+        String type = request.getParameter("type");
 
-        noteMapper.insert(title, content, user_id);
+        noteMapper.insert(title, content, user_id, type);
         return "redirect:/show_all_note";
     }
 }

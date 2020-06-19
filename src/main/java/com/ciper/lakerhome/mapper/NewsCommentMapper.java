@@ -16,6 +16,8 @@ public interface NewsCommentMapper {
 
     NewsComment selectByKey(@Param("id") Integer id);
 
+    void deleteByNewsId(@Param("news_id") Integer news_id);
+
     void insert(@Param("content") String content, @Param("user_id") String user_id, @Param("reply_user_id") String reply_user_id, @Param("pid") Integer pid, @Param("news_id") Integer news_id);
 
 }

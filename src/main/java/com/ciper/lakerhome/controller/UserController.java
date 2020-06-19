@@ -162,11 +162,4 @@ public class UserController {
         return "handle_user";
     }
 
-    //用户管理——删除账户
-    @GetMapping("handle_user_delete/{email}")
-    public String deleteUserByUserId(@PathVariable("email") String email){
-        userMapper.deleteByPrimaryKey(email);
-        return "redirect:/show_all_user";
-    }
-
 }

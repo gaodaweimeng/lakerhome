@@ -16,6 +16,17 @@
                 <a class="navbar-brand">球迷社区</a>
             </div>
 
+            <div>
+                <form class="navbar-form navbar-left" method="post" action="/find_note">
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" name="title" placeholder="查询您感兴趣的话题"/>
+                        </label>
+                    </div>
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="user_add_note.html"><span class="glyphicon glyphicon-plus"></span>发帖</a></li>
 
@@ -31,6 +42,32 @@
     <br>
     <br>
     <br>
+    <table class="table table-hover">
+        <form action="/show_type_note" method="post">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <label for="type" style=" vertical-align: middle">选择你喜爱的社区</label>
+                </div>
+                <div class="panel-body">
+                    <div class="modal-body">
+                        <select class="form-control" id="type" name="type">
+                            <option>湖人专区</option>
+                            <option>约球</option>
+                            <option>步行街</option>
+                            <option>篮球游戏</option>
+                            <option>篮球装备</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </table>
+
     <table class="table table-hover" th:each="note_list:${noteList}">
         <tr bgcolor="f3f3f3" height="25">
             <th>

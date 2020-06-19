@@ -14,4 +14,10 @@
         where Stars.name like CONCAT(CONCAT('%', #{stars_name}), '%') and Video.stars_id = Stars.Id
     </select>
 
+    <select id="selectByUserVideo" resultMap="BaseResultMap">
+        select lakerhome.Video.* from lakerhome.Video, lakerhome.User_Stars_Connection
+        where User_Stars_Connection.stars_id = video.stars_id
+        and User_Stars_Connection.user_id = #{email, jdbcType=VARCHAR}
+    </select>
+
 </mapper>

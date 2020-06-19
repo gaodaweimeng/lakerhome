@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>结账</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <body>
-    <p th:text="'金额：'+ ${price}"></p>
-    购买成功
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">结账成功</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="show_shopping_cart"><span class="glyphicon glyphicon-shopping-cart"></span>我的购物车</a></li>
+                <li><a href="user_index.html"><span class="glyphicon glyphicon-home"></span>用户主页</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <div class="row myCenter">
+        <div class="col-xs-6 col-md-4 col-center-block">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="modal-body">
+                        购买成功
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="modal-body">
+                        <p th:text="'已付款：'+ ${price}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

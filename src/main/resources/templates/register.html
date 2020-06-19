@@ -13,11 +13,11 @@
 
 <script>
     function register() {
-        let email = $("#email").val();
-        let inputPassword = $("#inputPassword").val();
-        let checkPassword = $("#checkPassword").val();
-        let tel = $("#tel").val();
-        if (String(inputPassword.toString()) === String(checkPassword.toString())){
+        var email = $("#email").val();
+        var inputPassword = $("#inputPassword").val();
+        var checkPassword = $("#checkPassword").val();
+        var tel = $("#tel").val();
+        if (inputPassword === checkPassword){
             $.post
             ("Register",{email:email,password:inputPassword,tel:tel},function (res)
                 {
@@ -44,37 +44,55 @@
             </ul>
         </div>
     </nav>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
     <div class="row myCenter">
         <div class="col-xs-6 col-md-4 col-center-block">
-            <form class="form-signin">
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            <div class="panel panel-primary">
+                <form class="form-signin">
 
-                <h2 class="form-signin-heading" align="center">注  册</h2>
+                    <div class="panel-heading">
+                        <div class="modal-body">
+                            <h2 class="form-signin-heading" align="center">注  册</h2>
+                        </div>
+                    </div>
 
-
-                <label for="email" class="sr-only">邮箱</label>
-                <input type="email" id="email" class="form-control" name="email" placeholder="name@domain.com" required autofocus>
-                <br/>
-
-                <label for="inputPassword" class="sr-only">密码</label>
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
-                <br/>
-
-                <label for="inputPassword" class="sr-only">确认密码</label>
-                <input type="password" id="checkPassword" class="form-control" placeholder="确认密码" required>
-                <br/>
-
-                <label class="sr-only">电话号码</label>
-                <input type="text" id="tel" class="form-control" name="tel" placeholder="电话号码" required>
-                <br/>
-
-                <button class="btn btn-lg btn-primary btn-block" onclick="register()" type="submit">注册</button>
-            </form>
+                    <div class="panel-body">
+                        <div class="modal-body">
+                            <label for="email" class="sr-only">邮箱</label>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="name@domain.com" required autofocus>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="modal-body">
+                            <label for="inputPassword" class="sr-only">密码</label>
+                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="modal-body">
+                            <label for="inputPassword" class="sr-only">确认密码</label>
+                            <input type="password" id="checkPassword" class="form-control" placeholder="确认密码" required>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="modal-body">
+                            <label class="sr-only">电话号码</label>
+                            <input type="text" id="tel" class="form-control" name="tel" placeholder="电话号码" required>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-lg btn-primary btn-block" onclick="register()" type="submit">注册</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

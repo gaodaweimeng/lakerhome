@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -27,6 +29,7 @@ public class VideoController {
         this.starsMapper = starsMapper;
     }
 
+    //用户登录前
     //视频展示
     @GetMapping("show_all_video")
     public String show_all_video(Model model){
@@ -42,6 +45,16 @@ public class VideoController {
         List<Video> video_list = videoMapper.selectByStarsName(stars_name);
         model.addAttribute(video_list);
         return "video";
+    }
+
+    //用户登录后
+    //展示订阅视频
+    @RequestMapping("show_user_video")
+    public String show_user_video(Model model, HttpSession session){
+        String email = session.getAttribute("user_email").toString();
+        List<Video> video_list = videoMapper.selectByUserVideo(email);
+        model.addAttribute(video_list);
+        return "user_video";
     }
 
     //管理员球星视频管理
